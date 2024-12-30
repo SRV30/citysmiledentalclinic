@@ -83,9 +83,7 @@ export default function App() {
         <Route
           path="/admin/users"
           element={
-            <PrivateRoute>
               <UsersList />
-            </PrivateRoute>
           }
         />
         <Route
