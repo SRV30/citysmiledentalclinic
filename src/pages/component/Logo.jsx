@@ -55,14 +55,14 @@ const Logo = () => {
       <main className="flex-grow container mx-auto flex items-center justify-center py-9">
         <div className="flex flex-col md:flex-row items-center bg-blue-800 my-6">
           <img
-            src={logoToDisplay}
+            src={logo}
             alt="home_alt"
             className="logo-img w-full sm:w-1/4 px-4 mx-auto"
           />
           <div className="text-center md:text-left px-8 py-12">
             <h4 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white"></h4>
             <h2 className="heading text-lg sm:text-xl md:text-2xl font-semibold text-white mt-4">
-              {headingToDisplay}
+              A Super Multi Speciality Family Dental Care Center
             </h2>
             <a
               href="#viewservice"
