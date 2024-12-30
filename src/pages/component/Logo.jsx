@@ -39,9 +39,8 @@ const Logo = () => {
     });
   }, [dispatch]);
 
-  const logoToDisplay = logoUrl || logo;
-  const headingToDisplay =
-    heading || "A Super Multi Speciality Family Dental Care Center";
+  const logoToDisplay = logo;
+  const headingToDisplay = "A Super Multi Speciality Family Dental Care Center";
 
   if (loading) {
     return <div>Loading...</div>;
