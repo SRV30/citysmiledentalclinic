@@ -2,6 +2,7 @@ import { getAboutHome } from "@/store/home/about";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { gsap } from "gsap";
+import me from "@/assets/me.jpg";
 
 const HomeAbout = () => {
   const dispatch = useDispatch();
@@ -66,11 +67,11 @@ const HomeAbout = () => {
       <main className="flex-grow container mx-auto flex flex-col md:flex-row items-center justify-between">
         <div className="md:w-1/2 mb-8 md:mb-0 aboutText">
           <h4 className="text-blue-800 text-lg md:text-2xl font-bold">
-            {heading}
+          City Smile Dental Clinic
           </h4>
-          <h3 className="text-black italic text-lg">{subheading}</h3>
-          <p className="text-black mt-4">{description1}</p>
-          <p className="text-black mt-6">{description2}</p>
+          <h3 className="text-black italic text-lg">Dr. Aditya Shivi</h3>
+          <p className="text-black mt-4">City Smile Dental Clinic has been known for its unparalleled commitment to patient satisfaction. We believe in providing premium quality treatment at an affordable price.</p>
+          <p className="text-black mt-6">We aim to make Motihari a 100% oral disease-free city in the coming years, by educating people and providing them with the best treatment they need.</p>
 
           <a
             href="/about"
@@ -80,7 +81,7 @@ const HomeAbout = () => {
           </a>
         </div>
         <div className="md:w-1/3 aboutImage">
-          <img src={imageUrl} alt="about" className="w-full h-full" />
+          <img src={me} alt="about" className="w-full h-full" />
         </div>
       </main>
     </div>
