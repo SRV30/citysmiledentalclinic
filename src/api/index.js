@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://citysmiledentalclinic-server.vercel.app/api/cs",
+  baseURL: "https://citysmiledentalclinic-server.onrender.com/api/cs",
   withCredentials: true, 
 });
 
