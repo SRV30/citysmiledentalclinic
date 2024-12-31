@@ -3,10 +3,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const getUserDetails = createAsyncThunk(
   "userDetails/getUserDetails", 
-  async (id, { rejectWithValue }) => {  // Accept 'id' as argument
+  async (id, { rejectWithValue }) => { 
     try {
       const response = await axiosInstance.get(`/admin/user/${id}`);
-      return response.data.user;  // Return the user data
+      return response.data.user;
     } catch (error) {
       return rejectWithValue(
         error.response?.data || { message: "Get single user failed!" }
