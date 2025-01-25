@@ -47,6 +47,11 @@ const service = require("./routes/serviceRoutes");
 const homeAbout = require("./routes/homeAboutRoutes");
 const homeContact = require("./routes/homeContactRoute");
 
+app.use((req, res, next) => {
+  console.log(`[${req.method}] ${req.url} - Origin: ${req.headers.origin}`);
+  next();
+});
+
 app.get("/", (req, res) => {
   res.json({
     message: "Server is running " + PORT,
