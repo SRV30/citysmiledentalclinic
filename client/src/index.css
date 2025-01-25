@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.dashboard-card {
+  @apply p-6 bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105 text-center text-gray-800 font-medium border border-gray-200 hover:bg-gray-100;
+}
+
+.dashboard-card:hover {
+  @apply text-blue-600;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
