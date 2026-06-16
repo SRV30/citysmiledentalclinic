@@ -13,7 +13,8 @@ const ContactActions = ({ phone, whatsapp, address }) => {
       lightColor: 'bg-blue-50',
       textColor: 'text-blue-600',
       link: `tel:${phone}`,
-      description: phone
+      description: phone,
+      ariaLabel: `Call Dr. Aditya Shivi at ${phone}`
     },
     {
       id: 'whatsapp',
@@ -24,7 +25,8 @@ const ContactActions = ({ phone, whatsapp, address }) => {
       lightColor: 'bg-green-50',
       textColor: 'text-green-600',
       link: `https://wa.me/91${whatsapp}`,
-      description: 'Instant response'
+      description: 'Instant response',
+      ariaLabel: "Message us on WhatsApp for an instant response"
     },
     {
       id: 'location',
@@ -35,7 +37,8 @@ const ContactActions = ({ phone, whatsapp, address }) => {
       lightColor: 'bg-slate-100',
       textColor: 'text-slate-900',
       link: 'https://maps.app.goo.gl/YourMapLinkHere',
-      description: address || 'View on Maps'
+      description: address || 'View on Maps',
+      ariaLabel: `View City Smile Dental Clinic location at ${address || 'our address'} on Google Maps`
     }
   ];
 
@@ -68,6 +71,8 @@ const ContactActions = ({ phone, whatsapp, address }) => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
+      role="list"
+      aria-label="Contact options"
     >
       {actions.map((action) => (
         <motion.a
@@ -76,16 +81,18 @@ const ContactActions = ({ phone, whatsapp, address }) => {
           target="_blank"
           rel="noreferrer"
           variants={itemVariants}
-          className="group block bg-white rounded-2xl p-5 md:p-6 shadow-xl shadow-slate-200/50 border border-slate-100 transition-all duration-300 hover:border-transparent hover:shadow-2xl hover:-translate-y-1 active:scale-[0.98] relative overflow-hidden"
+          role="listitem"
+          aria-label={action.ariaLabel}
+          className="group block bg-white rounded-2xl p-5 md:p-6 shadow-xl shadow-slate-200/50 border border-slate-100 transition-all duration-300 hover:border-transparent hover:shadow-2xl hover:-translate-y-1 active:scale-[0.98] relative overflow-hidden focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/50"
         >
           {/* Hover Color Slide */}
-          <div className={`absolute inset-0 ${action.color} translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out opacity-[0.03]`}></div>
+          <div className={`absolute inset-0 ${action.color} translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out opacity-[0.03]`} aria-hidden="true"></div>
 
           <div className="flex items-center justify-between mb-4 md:mb-6">
-            <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl ${action.lightColor} ${action.textColor} flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:${action.color} group-hover:text-white`}>
+            <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl ${action.lightColor} ${action.textColor} flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:${action.color} group-hover:text-white`} aria-hidden="true">
               {action.icon}
             </div>
-            <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-white group-hover:text-slate-900 transition-colors">
+            <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-white group-hover:text-slate-900 transition-colors" aria-hidden="true">
               <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
             </div>
           </div>
