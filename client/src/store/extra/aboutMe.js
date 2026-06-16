@@ -35,7 +35,7 @@ export const updateAboutMe = createAsyncThunk(
 const aboutMeSlice = createSlice({
     name: "aboutMe",
     initialState: {
-        about: [],
+        about: null,
         loading: true,
         error: null,
     },

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { IoIosCall, IoIosPhotos } from "react-icons/io";
-import { FaWhatsapp } from "react-icons/fa";
+import { IoIosCall } from "react-icons/io";
+import { FaWhatsapp, FaCertificate, FaUserMd, FaCalendarAlt, FaHandsHelping } from "react-icons/fa";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { getAboutMe } from "@/store/extra/aboutMe";
@@ -8,8 +8,7 @@ import { gsap } from "gsap";
 
 const AboutMe = () => {
   const dispatch = useDispatch();
-  const aboutFetch = useSelector((state) => state.aboutMe);
-  const { loading, error, about } = aboutFetch;
+  const { loading, error, about } = useSelector((state) => state.aboutMe);
 
   useEffect(() => {
     dispatch(getAboutMe());
@@ -17,146 +16,232 @@ const AboutMe = () => {
 
   useEffect(() => {
     if (about) {
-     
-      gsap.from(".about-header", {
+      gsap.from(".animate-up", {
         opacity: 0,
-        y: -50,
+        y: 40,
+        stagger: 0.2,
         duration: 1,
         ease: "power3.out",
       });
 
-      gsap.from(".about-info p", {
+      gsap.from(".trust-card", {
         opacity: 0,
-        y: 20,
-        stagger: 0.3,
-        duration: 1,
-        delay: 1,
-        ease: "power3.out",
-      });
-
-      gsap.from(".contact-info a", {
-        opacity: 0,
-        y: 20,
-        stagger: 0.3,
-        duration: 1,
-        delay: 1.5,
-        ease: "power3.out",
-      });
-
-      gsap.from(".about-button", {
-        opacity: 0,
-        scale: 0.5,
-        duration: 1,
-        delay: 2,
-        ease: "back.out(1.7)",
-      });
-
-      gsap.from(".about-image", {
-        opacity: 0,
-        scale: 0.8,
-        duration: 1.2,
-        delay: 2,
+        scale: 0.9,
+        stagger: 0.1,
+        duration: 0.8,
+        delay: 0.5,
         ease: "back.out(1.7)",
       });
     }
   }, [about]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="animate-pulse flex flex-col items-center">
+          <div className="w-12 h-12 bg-blue-200 rounded-full mb-4"></div>
+          <div className="h-4 w-32 bg-slate-200 rounded"></div>
+        </div>
+      </div>
+    );
   }
 
   if (error || !about) {
-    return <p className="text-red-500">{error}</p>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
+        <div className="text-center bg-white p-8 rounded-2xl shadow-sm border border-red-100">
+          <p className="text-red-500 font-medium mb-4">{error || "Failed to load doctor information"}</p>
+          <button
+            onClick={() => dispatch(getAboutMe())}
+            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
   }
+
+  const trustCards = [
+    { icon: <FaCalendarAlt className="text-blue-600 text-2xl" />, title: "Since 2022", desc: "Expert Dental Care" },
+    { icon: <FaCertificate className="text-blue-600 text-2xl" />, title: "Certified Dental Clinic", desc: "Reg: A-1234" },
+    { icon: <FaUserMd className="text-blue-600 text-2xl" />, title: "Implantology Specialist", desc: "Advanced Treatment" },
+    { icon: <FaHandsHelping className="text-blue-600 text-2xl" />, title: "Patient-Centered Care", desc: "Compassionate approach" },
+  ];
 
   return (
     <>
-      <MetaData title="About Me | City Smile Dental Clinic" />
-      <div className="bg-blue-100 min-h-screen">
-        <div className="container my-5 py-8">
-          <div className="flex items-center justify-center flex-col">
-            <h3 className="about-header text-4xl font-bold mb-4 text-blue-600 py-4">
-              {about.name}
-            </h3>
+      <MetaData title={`Dr. Aditya Shivi | About Me | City Smile Dental Clinic`} />
 
-            <img
-              src={about.profilePicture}
-              alt="Profile"
-              className={
-                "profile-picture rounded-full w-52 h-52 mb-4 hover:opacity-80 transition-opacity duration-300 ease-in-out "
-              }
-            />
+      <div className="bg-slate-50 min-h-screen">
+        {/* Hero Section: Doctor Photo & Info */}
+        <section className="bg-white border-b border-slate-100 overflow-hidden">
+          <div className="container mx-auto px-4 py-12 lg:py-24">
+            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
-            <h4 className="text-xl font-semibold text-blue-800">
-              {about.qualifications}
-            </h4>
+              {/* Section 1: Doctor Photo */}
+              <div className="w-full lg:w-5/12 animate-up">
+                <div className="relative group">
+                  {/* Decorative background element */}
+                  <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/20 to-transparent rounded-[2.5rem] -rotate-3 transition-transform group-hover:rotate-0 duration-500"></div>
 
-            <div className="about-info mb-4">
-              <p>{about.experience1}</p>
-              <p>{about.experience2}</p>
-              <p>{about.experience3}</p>
-              <p>{about.experience4}</p>
-              <p>{about.experience5}</p>
-            </div>
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl shadow-blue-900/10">
+                    <img
+                      src={about.profilePicture}
+                      alt={about.name}
+                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-              <div className="contact-info flex items-center mb-4">
-                <IoIosCall className="mr-2 text-blue-600" />
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href={`tel:${about.phone}`}
-                  className="text-blue-600 hover:text-blue-900 transition-colors duration-300 ease-in-out"
-                >
-                  {about.phone}
-                </a>
+                  {/* Floating Badge */}
+                  <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-2xl shadow-xl hidden md:block">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center">
+                        <FaCertificate className="text-green-500 text-xl" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Experience</p>
+                        <p className="text-sm font-bold text-slate-900">Expert Dentist</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="contact-info flex items-center mb-4">
-                <FaWhatsapp className="mr-2 text-green-500" />
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href={`https://wa.me/91${about.whatsapp}`}
-                  className="text-green-500 hover:text-green-700 transition-colors duration-300 ease-in-out"
-                >
-                  {about.whatsapp}
-                </a>
+              {/* Section 2: Doctor Information */}
+              <div className="w-full lg:w-7/12 animate-up">
+                <div className="flex items-center gap-2 mb-6">
+                  <span className="h-1 w-12 bg-blue-600 rounded-full"></span>
+                  <span className="text-blue-600 font-bold uppercase tracking-widest text-xs">Professional Profile</span>
+                </div>
+
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
+                  Dr. Aditya Shivi
+                </h1>
+
+                <div className="flex flex-wrap items-center gap-3 mb-8">
+                  <span className="px-4 py-1.5 bg-blue-50 text-blue-700 rounded-full text-sm font-bold border border-blue-100">
+                    BDS (MIDA) Delhi
+                  </span>
+                  <span className="px-4 py-1.5 bg-slate-50 text-slate-700 rounded-full text-sm font-bold border border-slate-200">
+                    Implantologist
+                  </span>
+                </div>
+
+                <div className="space-y-6 text-slate-600 text-lg leading-relaxed mb-10 max-w-2xl">
+                  <p className="font-medium text-slate-800">
+                    {about.experience1}
+                  </p>
+                  <p>
+                    {about.experience2}
+                  </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 items-center">
+                  <a
+                    href={`tel:${about.phone}`}
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 hover:-translate-y-0.5 active:translate-y-0"
+                  >
+                    <IoIosCall className="text-xl" /> Book Consultation
+                  </a>
+                  <a
+                    href={`https://wa.me/91${about.whatsapp}`}
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-green-500 text-white rounded-xl font-bold hover:bg-green-600 transition-all shadow-lg shadow-green-200 hover:-translate-y-0.5 active:translate-y-0"
+                  >
+                    <FaWhatsapp className="text-xl" /> WhatsApp Now
+                  </a>
+                </div>
               </div>
-            </div>
 
-            <div className="flex items-center mb-4">
-              <p className="mr-2 text-blue-700">Certificate of Registration:</p>
-              <a
-                href={about.registrationCertificate}
-                target="_blank"
-                rel="noreferrer"
-                className="text-blue-400"
-              >
-                View in full
-              </a>
-            </div>
-
-            <div className="about-image flex justify-center">
-              <img
-                id="registration"
-                src={about.registrationCertificate}
-                alt="Certificate of Registration"
-                className="w-64 h-auto hover:opacity-80 transition-opacity duration-300 ease-in-out transform hover:scale-150"
-              />
-            </div>
-
-            <div className="about-button flex justify-center bg-white p-6 rounded-lg shadow-md mb-8 my-20">
-              <IoIosPhotos className="mr-2 text-blue-600" />
-              <a
-                href="/photo"
-                className="text-blue-600 hover:text-blue-900 transition-colors duration-300 ease-in-out"
-              >
-                Photo Gallery
-              </a>
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* Trust Cards Section */}
+        <section className="container mx-auto px-4 -mt-12 lg:-mt-16 relative z-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {trustCards.map((card, index) => (
+              <div
+                key={index}
+                className="trust-card bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center group hover:border-blue-200 transition-all"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-600 transition-all duration-300">
+                  <span className="group-hover:text-white transition-colors">
+                    {card.icon}
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{card.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{card.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Additional Experience & Registration */}
+        <section className="container mx-auto px-4 py-20 lg:py-32">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-16 items-start">
+
+              <div className="animate-up">
+                <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                  <span className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white text-base">
+                    <FaUserMd />
+                  </span>
+                  Clinical Experience
+                </h2>
+                <div className="space-y-8 relative before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-100">
+                  {[about.experience3, about.experience4, about.experience5].filter(Boolean).map((exp, i) => (
+                    <div key={i} className="relative pl-8">
+                      <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full border-4 border-white bg-blue-600 shadow-sm"></div>
+                      <p className="text-slate-600 leading-relaxed italic">
+                        "{exp}"
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="animate-up">
+                <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                  <span className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white text-base">
+                    <FaCertificate />
+                  </span>
+                  Certifications
+                </h2>
+                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm group">
+                  <div className="relative overflow-hidden rounded-xl bg-slate-900 aspect-video mb-6">
+                    <img
+                      src={about.registrationCertificate}
+                      alt="Medical Registration"
+                      className="w-full h-full object-contain opacity-90 group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <a
+                        href={about.registrationCertificate}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="px-6 py-2 bg-white text-slate-900 rounded-lg font-bold text-sm shadow-xl"
+                      >
+                        View Full Certificate
+                      </a>
+                    </div>
+                  </div>
+                  <h4 className="text-lg font-bold text-slate-900 mb-2">Dental Registration</h4>
+                  <p className="text-sm text-slate-500 mb-4">Officially registered medical practitioner under the dental council of India.</p>
+                  <a
+                    href={about.registrationCertificate}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-blue-600 font-bold text-sm hover:underline flex items-center gap-1"
+                  >
+                    Verify Credentials
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
       </div>
     </>
   );
