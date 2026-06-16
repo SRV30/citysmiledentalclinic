@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaCertificate, FaUserMd } from "react-icons/fa";
+import { Award, UserCheck, CheckCircle, GraduationCap } from "lucide-react";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { getAboutMe } from "@/store/extra/aboutMe";
@@ -35,17 +35,17 @@ const AboutMe = () => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: [0.22, 1, 0.36, 1]
+        ease: [0.215, 0.610, 0.355, 1.000]
       }
     }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50" aria-busy="true" aria-label="Loading doctor profile">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50" aria-busy="true" aria-label="Loading profile">
         <div className="animate-pulse flex flex-col items-center">
-          <div className="w-12 h-12 bg-blue-200 rounded-full mb-4"></div>
-          <div className="h-4 w-32 bg-slate-200 rounded"></div>
+          <div className="w-16 h-16 bg-blue-100 rounded-full mb-6 ring-8 ring-blue-50"></div>
+          <div className="h-4 w-40 bg-slate-200 rounded-full"></div>
         </div>
       </div>
     );
@@ -53,14 +53,15 @@ const AboutMe = () => {
 
   if (error || !about) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4" role="alert">
-        <div className="text-center bg-white p-8 rounded-2xl shadow-sm border border-red-100">
-          <p className="text-red-500 font-medium mb-4">{error || "Failed to load doctor information"}</p>
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 p-6" role="alert">
+        <div className="text-center bg-white p-10 rounded-[2.5rem] shadow-2xl shadow-slate-200 border border-slate-100 max-w-md">
+          <div className="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">!</div>
+          <p className="text-slate-900 font-bold text-xl mb-6">{error || "Profile unavailable"}</p>
           <button
             onClick={() => dispatch(getAboutMe())}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/50"
+            className="w-full py-4 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 focus-visible:ring-4 focus-visible:ring-blue-500/50"
           >
-            Retry
+            Try Again
           </button>
         </div>
       </div>
@@ -71,84 +72,88 @@ const AboutMe = () => {
     <>
       <MetaData title={`Dr. Aditya Shivi | About Me | City Smile Dental Clinic`} />
 
-      <div className="bg-slate-50 min-h-screen">
-        {/* Hero Section */}
-        <section className="bg-white border-b border-slate-100 overflow-hidden" aria-labelledby="doctor-name">
-          <div className="container mx-auto px-4 md:px-6 py-12 md:py-20 lg:py-24">
+      <div className="bg-slate-50/50 min-h-screen">
+        {/* Profile Hero */}
+        <section className="bg-white border-b border-slate-100 overflow-hidden relative" aria-labelledby="doctor-name">
+          <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -skew-x-12 transform origin-top translate-x-1/2 pointer-events-none"></div>
+
+          <div className="container mx-auto px-6 md:px-8 py-16 md:py-24 lg:py-32 relative">
             <motion.div
-              className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 xl:gap-20"
+              className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 xl:gap-24"
               initial="hidden"
               animate="visible"
               variants={containerVariants}
             >
 
-              {/* Photo Section */}
-              <motion.div variants={fadeInUp} className="w-full lg:w-5/12 flex justify-center">
+              {/* Profile Image Section */}
+              <motion.div variants={fadeInUp} className="w-full lg:w-5/12 flex justify-center lg:justify-end">
                 <div className="relative group max-w-sm md:max-w-md lg:max-w-none">
-                  <div className="absolute -inset-4 bg-blue-100/50 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" aria-hidden="true"></div>
+                  {/* Premium Ambient Glow */}
+                  <div className="absolute -inset-6 bg-blue-100/50 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" aria-hidden="true"></div>
 
-                  <div className="relative p-2.5 md:p-3 bg-white rounded-full shadow-2xl shadow-blue-900/10 border border-slate-100 transition-transform duration-500 group-hover:scale-[1.02]">
-                    <div className="w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-slate-50">
+                  <div className="relative p-3 md:p-4 bg-white rounded-full shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] border border-slate-100 transition-transform duration-700 group-hover:scale-[1.03]">
+                    <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full overflow-hidden border-[6px] border-slate-50 shadow-inner">
                       <img
                         src={about.profilePicture}
-                        alt={`Professional portrait of ${about.name}`}
-                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 ease-in-out"
+                        alt={`Dr. Aditya Shivi - Specialist Dentist`}
+                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 ease-out"
                       />
                     </div>
                   </div>
 
+                  {/* Floating Trust Badge */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.8, duration: 0.5 }}
-                    className="absolute bottom-4 right-4 md:bottom-8 md:right-8 bg-white py-2.5 px-4 md:py-3 md:px-5 rounded-2xl shadow-xl shadow-blue-900/10 border border-slate-50 hidden sm:flex items-center gap-3 animate-float"
-                    aria-label="Verified expert status from medical board"
+                    className="absolute -bottom-4 right-4 md:bottom-12 md:-right-8 bg-white py-4 px-6 rounded-3xl shadow-2xl shadow-blue-900/10 border border-slate-100 flex items-center gap-4 animate-float ring-1 ring-slate-900/5"
+                    aria-label="Verified Medical Professional Status"
                   >
-                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-200">
-                      <FaCertificate className="text-white text-sm md:text-lg" aria-hidden="true" />
+                    <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center shadow-xl shadow-blue-200">
+                      <CheckCircle className="text-white w-6 h-6" aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest leading-tight">Medical Board</p>
-                      <p className="text-xs md:text-sm font-extrabold text-slate-900">Verified Expert</p>
+                      <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] leading-tight">Board Verified</p>
+                      <p className="text-sm font-extrabold text-slate-900">Expert Dentist</p>
                     </div>
                   </motion.div>
                 </div>
               </motion.div>
 
-              {/* Info Section */}
+              {/* Profile Details Section */}
               <div className="w-full lg:w-7/12 text-center lg:text-left">
-                <motion.div variants={fadeInUp} className="flex items-center justify-center lg:justify-start gap-2 mb-4 md:mb-6">
-                  <span className="h-1 w-8 md:w-12 bg-blue-600 rounded-full" aria-hidden="true"></span>
-                  <span className="text-blue-600 font-bold uppercase tracking-widest text-[10px] md:text-xs">Professional Profile</span>
+                <motion.div variants={fadeInUp} className="flex items-center justify-center lg:justify-start gap-3 mb-6">
+                  <span className="h-1.5 w-12 bg-blue-600 rounded-full" aria-hidden="true"></span>
+                  <span className="text-blue-600 font-bold uppercase tracking-[0.2em] text-xs">Medical Profile</span>
                 </motion.div>
 
                 <motion.h1
                   id="doctor-name"
                   variants={fadeInUp}
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 tracking-tight"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 mb-6 tracking-tight leading-[1.1]"
                 >
                   Dr. Aditya Shivi
                 </motion.h1>
 
-                <motion.div variants={fadeInUp} className="flex flex-wrap items-center justify-center lg:justify-start gap-2 md:gap-3 mb-6 md:mb-8">
-                  <span className="px-3 py-1 md:px-4 md:py-1.5 bg-blue-50 text-blue-700 rounded-full text-xs md:text-sm font-bold border border-blue-100">
-                    BDS (MIDA) Delhi
-                  </span>
-                  <span className="px-3 py-1 md:px-4 md:py-1.5 bg-slate-50 text-slate-700 rounded-full text-xs md:text-sm font-bold border border-slate-200">
-                    Implantologist
-                  </span>
+                <motion.div variants={fadeInUp} className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-10">
+                  <div className="flex items-center gap-2 px-5 py-2 bg-blue-50 text-blue-700 rounded-2xl text-sm font-bold border border-blue-100 shadow-sm">
+                    <GraduationCap className="w-4 h-4" /> BDS (MIDA) Delhi
+                  </div>
+                  <div className="flex items-center gap-2 px-5 py-2 bg-slate-900 text-white rounded-2xl text-sm font-bold border border-slate-800 shadow-sm">
+                    <Award className="w-4 h-4" /> Implantologist
+                  </div>
                 </motion.div>
 
-                <motion.div variants={fadeInUp} className="space-y-4 md:space-y-6 text-slate-600 text-base md:text-lg leading-relaxed mb-8 md:mb-10 max-w-2xl mx-auto lg:mx-0">
-                  <p className="font-medium text-slate-800">
+                <motion.div variants={fadeInUp} className="space-y-6 text-slate-600 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto lg:mx-0">
+                  <p className="font-semibold text-slate-900 leading-snug">
                     {about.experience1}
                   </p>
-                  <p>
+                  <p className="opacity-80">
                     {about.experience2}
                   </p>
                 </motion.div>
 
-                <motion.div variants={fadeInUp} className="pt-2">
+                <motion.div variants={fadeInUp}>
                   <ContactActions
                     phone={about.phone}
                     whatsapp={about.whatsapp}
@@ -161,16 +166,17 @@ const AboutMe = () => {
           </div>
         </section>
 
-        {/* Trust Cards Section */}
-        <section className="container mx-auto px-4 md:px-6 -mt-8 md:-mt-12 lg:-mt-16 relative z-20" aria-label="Trust and excellence indicators">
+        {/* Indicators Section */}
+        <section className="container mx-auto px-6 md:px-8 -mt-10 md:-mt-16 lg:-mt-20 relative z-20" aria-label="Professional Indicators">
           <TrustCards />
         </section>
 
-        {/* Details Section */}
-        <section className="container mx-auto px-4 md:px-6 py-16 md:py-24 lg:py-32">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+        {/* Detailed Information Section */}
+        <section className="container mx-auto px-6 md:px-8 py-20 md:py-32 lg:py-40">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-start">
 
+              {/* Clinical Experience */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -179,17 +185,18 @@ const AboutMe = () => {
                 role="region"
                 aria-labelledby="exp-heading"
               >
-                <h2 id="exp-heading" className="text-2xl md:text-3xl font-bold text-slate-900 mb-6 md:mb-8 flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white text-sm md:text-base" aria-hidden="true">
-                    <FaUserMd />
-                  </span>
-                  Clinical Experience
-                </h2>
-                <div className="space-y-6 md:space-y-8 relative before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-100">
+                <div className="flex items-center gap-4 mb-10">
+                    <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-xl shadow-blue-100">
+                        <UserCheck className="w-6 h-6" />
+                    </div>
+                    <h2 id="exp-heading" className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Clinical Focus</h2>
+                </div>
+
+                <div className="space-y-10 relative before:absolute before:left-[1.35rem] before:top-4 before:bottom-4 before:w-px before:bg-slate-200">
                   {[about.experience3, about.experience4, about.experience5].filter(Boolean).map((exp, i) => (
-                    <div key={i} className="relative pl-8">
-                      <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full border-4 border-white bg-blue-600 shadow-sm" aria-hidden="true"></div>
-                      <p className="text-slate-600 text-sm md:text-base leading-relaxed italic">
+                    <div key={i} className="relative pl-12 group">
+                      <div className="absolute left-4 top-2.5 w-3 h-3 rounded-full border-[3px] border-white bg-blue-600 shadow-[0_0_0_4px_rgba(37,99,235,0.1)] group-hover:scale-125 transition-transform"></div>
+                      <p className="text-slate-600 text-lg md:text-xl leading-relaxed italic font-medium opacity-90">
                         "{exp}"
                       </p>
                     </div>
@@ -197,6 +204,7 @@ const AboutMe = () => {
                 </div>
               </motion.div>
 
+              {/* Certifications Display */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -205,35 +213,36 @@ const AboutMe = () => {
                 role="region"
                 aria-labelledby="cert-heading"
               >
-                <h2 id="cert-heading" className="text-2xl md:text-3xl font-bold text-slate-900 mb-6 md:mb-8 flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white text-sm md:text-base" aria-hidden="true">
-                    <FaCertificate />
-                  </span>
-                  Certifications
-                </h2>
-                <div className="bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-sm group">
+                <div className="flex items-center gap-4 mb-10">
+                    <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-xl shadow-blue-100">
+                        <Award className="w-6 h-6" />
+                    </div>
+                    <h2 id="cert-heading" className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Accreditation</h2>
+                </div>
+
+                <div className="bg-white p-8 md:p-10 rounded-[2.5rem] border border-slate-100 shadow-2xl shadow-slate-200/50 group relative overflow-hidden ring-1 ring-slate-900/5">
                   <button
-                    className="w-full relative overflow-hidden rounded-xl bg-slate-100 aspect-[4/3] mb-4 md:mb-6 cursor-pointer focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/50"
+                    className="w-full relative overflow-hidden rounded-3xl bg-slate-50 aspect-[4/3] mb-8 cursor-pointer focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/50 group/preview"
                     onClick={() => setIsModalOpen(true)}
-                    aria-label="View registration certificate in full screen"
+                    aria-label="View full registration certificate"
                   >
                     <img
                       src={about.registrationCertificate}
-                      alt="Registration Certificate from the Dental Council of India"
-                      className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0"
+                      alt="Official Dental Registration Certificate"
+                      className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0"
                     />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="px-4 py-2 md:px-5 md:py-2.5 bg-white/95 backdrop-blur shadow-xl rounded-xl text-slate-900 font-bold text-xs md:text-sm flex items-center gap-2 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
-                            <FaCertificate className="text-blue-600" aria-hidden="true" /> View Full Certificate
+                    <div className="absolute inset-0 bg-slate-900/5 flex items-center justify-center opacity-0 group-hover/preview:opacity-100 transition-opacity">
+                        <div className="px-6 py-3 bg-white/95 backdrop-blur-xl shadow-2xl rounded-2xl text-slate-900 font-extrabold text-sm flex items-center gap-3 transform translate-y-4 group-hover/preview:translate-y-0 transition-all duration-500">
+                            <CheckCircle className="text-blue-600 w-5 h-5" aria-hidden="true" /> Verify Document
                         </div>
                     </div>
                   </button>
-                  <h4 className="text-lg font-bold text-slate-900 mb-2">Dental Registration</h4>
-                  <p className="text-xs md:text-sm text-slate-500 mb-4">Registered medical practitioner under the Dental Council of India.</p>
+                  <h4 className="text-xl font-extrabold text-slate-900 mb-3 tracking-tight">Professional Registration</h4>
+                  <p className="text-slate-500 mb-8 leading-relaxed">Officially recognized and registered medical practitioner under the <span className="text-slate-900 font-bold">Dental Council of India</span>.</p>
+
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="text-blue-600 font-bold text-xs md:text-sm hover:underline flex items-center gap-1 active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 rounded"
-                    aria-label="Verify medical credentials and registration"
+                    className="w-full py-4 bg-slate-50 text-slate-900 rounded-2xl font-bold text-sm hover:bg-blue-600 hover:text-white transition-all duration-300 border border-slate-100 active:scale-95 focus-visible:ring-4 focus-visible:ring-blue-500/50"
                   >
                     Verify Credentials
                   </button>
