@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { IoIosCall } from "react-icons/io";
-import { FaWhatsapp, FaCertificate, FaUserMd, FaCalendarAlt, FaHandsHelping } from "react-icons/fa";
+import { FaWhatsapp, FaCertificate, FaUserMd } from "react-icons/fa";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { getAboutMe } from "@/store/extra/aboutMe";
 import { gsap } from "gsap";
+import TrustCards from "./TrustCards";
 
 const AboutMe = () => {
   const dispatch = useDispatch();
@@ -61,13 +62,6 @@ const AboutMe = () => {
       </div>
     );
   }
-
-  const trustCards = [
-    { icon: <FaCalendarAlt className="text-blue-600 text-2xl" />, title: "Since 2022", desc: "Expert Dental Care" },
-    { icon: <FaCertificate className="text-blue-600 text-2xl" />, title: "Certified Dental Clinic", desc: "Reg: A-1234" },
-    { icon: <FaUserMd className="text-blue-600 text-2xl" />, title: "Implantology Specialist", desc: "Advanced Treatment" },
-    { icon: <FaHandsHelping className="text-blue-600 text-2xl" />, title: "Patient-Centered Care", desc: "Compassionate approach" },
-  ];
 
   return (
     <>
@@ -160,21 +154,8 @@ const AboutMe = () => {
 
         {/* Trust Cards Section */}
         <section className="container mx-auto px-4 -mt-12 lg:-mt-16 relative z-20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {trustCards.map((card, index) => (
-              <div
-                key={index}
-                className="trust-card bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center group hover:border-blue-200 transition-all"
-              >
-                <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-600 transition-all duration-300">
-                  <span className="group-hover:text-white transition-colors">
-                    {card.icon}
-                  </span>
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{card.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{card.desc}</p>
-              </div>
-            ))}
+          <div className="trust-card">
+            <TrustCards />
           </div>
         </section>
 
