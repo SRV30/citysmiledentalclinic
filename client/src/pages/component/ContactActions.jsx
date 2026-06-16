@@ -1,5 +1,6 @@
 import React from 'react';
 import { Phone, MessageSquare, MapPin, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const ContactActions = ({ phone, whatsapp, address }) => {
   const actions = [
@@ -33,19 +34,48 @@ const ContactActions = ({ phone, whatsapp, address }) => {
       color: 'bg-slate-900',
       lightColor: 'bg-slate-100',
       textColor: 'text-slate-900',
-      link: 'https://maps.app.goo.gl/YourMapLinkHere', // Replace with real link or prop
+      link: 'https://maps.app.goo.gl/YourMapLinkHere',
       description: address || 'View on Maps'
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <motion.div
+      className="grid grid-cols-1 md:grid-cols-3 gap-6"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+    >
       {actions.map((action) => (
-        <a
+        <motion.a
           key={action.id}
           href={action.link}
           target="_blank"
           rel="noreferrer"
+          variants={itemVariants}
           className="group block bg-white rounded-2xl p-6 shadow-xl shadow-slate-200/50 border border-slate-100 transition-all duration-300 hover:border-transparent hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden"
         >
           {/* Hover Color Slide */}
@@ -71,9 +101,9 @@ const ContactActions = ({ phone, whatsapp, address }) => {
               {action.description}
             </p>
           </div>
-        </a>
+        </motion.a>
       ))}
-    </div>
+    </motion.div>
   );
 };
 

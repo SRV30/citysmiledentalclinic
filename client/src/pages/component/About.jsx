@@ -1,8 +1,8 @@
 import { getAboutHome } from "@/store/home/about";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { gsap } from "gsap";
 import { FaChevronRight, FaStar } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const HomeAbout = () => {
   const dispatch = useDispatch();
@@ -13,57 +13,88 @@ const HomeAbout = () => {
     dispatch(getAboutHome());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (!loading) {
-      gsap.from(".home-about-animate", {
-        opacity: 0,
-        y: 30,
-        stagger: 0.2,
-        duration: 1,
-        ease: "power3.out",
-      });
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
 
-      gsap.from(".home-about-image", {
-        opacity: 0,
-        x: 50,
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.9, x: 50 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      x: 0,
+      transition: {
         duration: 1.2,
-        delay: 0.5,
-        ease: "power2.out",
-      });
-    }
-  }, [loading]);
+        ease: "easeOut",
+      },
+    },
+  };
 
   if (loading) return null;
 
   return (
     <section id="about" className="bg-white py-20 lg:py-32 overflow-hidden">
-      <div className="container mx-auto px-4">
+      <motion.div
+        className="container mx-auto px-4"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={containerVariants}
+      >
         <div className="flex flex-col lg:flex-row items-center gap-16 xl:gap-24">
 
           {/* Section 1: Content */}
           <div className="w-full lg:w-1/2 order-2 lg:order-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 font-bold text-xs uppercase tracking-widest mb-6 home-about-animate">
+            <motion.div
+              variants={itemVariants}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 font-bold text-xs uppercase tracking-widest mb-6"
+            >
               <FaStar className="text-[10px]" /> Welcome to City Smile
-            </div>
+            </motion.div>
 
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight home-about-animate">
+            <motion.h2
+              variants={itemVariants}
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight"
+            >
               {heading || "Excellence in Dental Care for Your Family"}
-            </h2>
+            </motion.h2>
 
-            <h3 className="text-xl font-semibold text-blue-600 mb-8 italic home-about-animate">
+            <motion.h3
+              variants={itemVariants}
+              className="text-xl font-semibold text-blue-600 mb-8 italic"
+            >
               {subheading || "Led by Dr. Aditya Shivi"}
-            </h3>
+            </motion.h3>
 
-            <div className="space-y-6 text-slate-600 text-lg leading-relaxed mb-10 home-about-animate">
-              <p>
+            <div className="space-y-6 text-slate-600 text-lg leading-relaxed mb-10">
+              <motion.p variants={itemVariants}>
                 {description1 || "City Smile Dental Clinic has been known for its unparalleled commitment to patient satisfaction. We believe in providing premium quality treatment at an affordable price."}
-              </p>
-              <p>
+              </motion.p>
+              <motion.p variants={itemVariants}>
                 {description2 || "We aim to make Motihari a 100% oral disease-free city in the coming years, by educating people and providing them with the best treatment they need."}
-              </p>
+              </motion.p>
             </div>
 
-            <div className="home-about-animate">
+            <motion.div variants={itemVariants}>
               <a
                 href="/about"
                 className="group inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-blue-600 transition-all shadow-xl shadow-slate-200 hover:-translate-y-1"
@@ -71,11 +102,14 @@ const HomeAbout = () => {
                 Learn More About Me
                 <FaChevronRight className="text-sm group-hover:translate-x-1 transition-transform" />
               </a>
-            </div>
+            </motion.div>
           </div>
 
           {/* Section 2: Image */}
-          <div className="w-full lg:w-1/2 order-1 lg:order-2 home-about-image">
+          <motion.div
+            variants={imageVariants}
+            className="w-full lg:w-1/2 order-1 lg:order-2"
+          >
             <div className="relative">
               {/* Decorative elements */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-50 rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
@@ -88,7 +122,13 @@ const HomeAbout = () => {
                 />
 
                 {/* Stats Overlay */}
-                <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/20">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1, duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/20"
+                >
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="text-3xl font-bold text-slate-900">100%</p>
@@ -100,13 +140,13 @@ const HomeAbout = () => {
                       <p className="text-xs font-bold text-slate-500 uppercase tracking-tighter">Quality Treatment</p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

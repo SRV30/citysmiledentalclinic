@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calendar, Award, UserCheck, HeartPulse } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const TrustCards = () => {
   const cards = [
@@ -29,11 +30,41 @@ const TrustCards = () => {
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <motion.div
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+    >
       {cards.map((card) => (
-        <div
+        <motion.div
           key={card.id}
+          variants={cardVariants}
           className="group relative bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center transition-all duration-300 hover:border-blue-200 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-900/5"
         >
           {/* Subtle background glow on hover */}
@@ -54,9 +85,9 @@ const TrustCards = () => {
           <p className="relative z-10 text-sm text-slate-500 leading-relaxed">
             {card.description}
           </p>
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 };
 
