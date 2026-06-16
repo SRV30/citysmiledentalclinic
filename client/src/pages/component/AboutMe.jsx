@@ -7,9 +7,12 @@ import { getAboutMe } from "@/store/extra/aboutMe";
 import { gsap } from "gsap";
 import TrustCards from "./TrustCards";
 import ContactActions from "./ContactActions";
+import CertificateModal from "./CertificateModal";
+import { useState } from "react";
 
 const AboutMe = () => {
   const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { loading, error, about } = useSelector((state) => state.aboutMe);
 
   useEffect(() => {
@@ -185,35 +188,35 @@ const AboutMe = () => {
                   Certifications
                 </h2>
                 <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm group">
-                  <div className="relative overflow-hidden rounded-xl bg-slate-900 aspect-video mb-6">
+                  <div className="relative overflow-hidden rounded-xl bg-slate-100 aspect-[4/3] mb-6 cursor-pointer" onClick={() => setIsModalOpen(true)}>
                     <img
                       src={about.registrationCertificate}
                       alt="Medical Registration"
-                      className="w-full h-full object-contain opacity-90 group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <a
-                        href={about.registrationCertificate}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-6 py-2 bg-white text-slate-900 rounded-lg font-bold text-sm shadow-xl"
-                      >
-                        View Full Certificate
-                      </a>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="px-5 py-2.5 bg-white/90 backdrop-blur shadow-xl rounded-xl text-slate-900 font-bold text-sm flex items-center gap-2 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                            <FaCertificate className="text-blue-600" /> View Certificate
+                        </div>
                     </div>
                   </div>
                   <h4 className="text-lg font-bold text-slate-900 mb-2">Dental Registration</h4>
-                  <p className="text-sm text-slate-500 mb-4">Officially registered medical practitioner under the dental council of India.</p>
-                  <a
-                    href={about.registrationCertificate}
-                    target="_blank"
-                    rel="noreferrer"
+                  <p className="text-sm text-slate-500 mb-4">Officially registered medical practitioner under the Dental Council of India.</p>
+                  <button
+                    onClick={() => setIsModalOpen(true)}
                     className="text-blue-600 font-bold text-sm hover:underline flex items-center gap-1"
                   >
                     Verify Credentials
-                  </a>
+                  </button>
                 </div>
               </div>
+
+              <CertificateModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                imageUrl={about.registrationCertificate}
+                title="Registration Certificate - Dental Council"
+              />
 
             </div>
           </div>
