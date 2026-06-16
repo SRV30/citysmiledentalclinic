@@ -22,6 +22,7 @@ import AdminService from "./pages/admin/AdminService";
 import AdminLogo from "./pages/admin/AdminLogo";
 import AdminHomeAbout from "./pages/admin/AdminHomeAbout";
 import AdminHomeContact from "./pages/admin/AdminHomeContact";
+import AdminTestimonials from "./pages/admin/AdminTestimonials";
 import PrivateRoute from "./protected-route";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import UpdateProfile from "./pages/auth/UpdateProfile";
@@ -59,6 +60,14 @@ export default function App() {
           element={
             <PrivateRoute>
               <UpdateProfile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin/testimonials"
+          element={
+            <PrivateRoute>
+              <AdminTestimonials />
             </PrivateRoute>
           }
         />

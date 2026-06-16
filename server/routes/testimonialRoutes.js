@@ -3,6 +3,7 @@ const {
   createTestimonial,
   getAllTestimonials,
   adminGetAllTestimonials,
+  updateTestimonial,
   updateTestimonialStatus,
   deleteTestimonial,
 } = require("../controllers/testimonialController");
@@ -20,7 +21,12 @@ router
 
 router
   .route("/admin/testimonial/:id")
-  .put(isAuthenticatedUser, authorizeRoles("admin"), updateTestimonialStatus)
+  .put(isAuthenticatedUser, authorizeRoles("admin"), updateTestimonial)
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteTestimonial);
+
+// Status only update fallback
+router
+  .route("/admin/testimonial/status/:id")
+  .put(isAuthenticatedUser, authorizeRoles("admin"), updateTestimonialStatus);
 
 module.exports = router;

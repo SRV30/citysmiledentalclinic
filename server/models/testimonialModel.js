@@ -7,6 +7,10 @@ const testimonialSchema = new mongoose.Schema(
       required: [true, "Please provide your name"],
       trim: true,
     },
+    avatar: {
+      type: String,
+      default: "",
+    },
     rating: {
       type: Number,
       required: [true, "Please provide a rating"],
@@ -22,6 +26,10 @@ const testimonialSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isFeatured: {
+      type: Boolean,
+      default: false,
+    }
   },
   { timestamps: true }
 );

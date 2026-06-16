@@ -3,7 +3,7 @@ const Testimonial = require("../models/testimonialModel");
 // Public: Create a new testimonial
 exports.createTestimonial = async (req, res) => {
   try {
-    const { patientName, rating, comment } = req.body;
+    const { patientName, rating, comment, avatar } = req.body;
 
     if (!patientName || !rating || !comment) {
       return res.status(400).json({ message: "Please fill all fields" });
@@ -13,7 +13,8 @@ exports.createTestimonial = async (req, res) => {
       patientName,
       rating,
       comment,
-      isApproved: false, // Force moderation
+      avatar: avatar || "",
+      isApproved: false,
     });
 
     res.status(201).json({
@@ -29,7 +30,7 @@ exports.createTestimonial = async (req, res) => {
 // Public: Get all approved testimonials
 exports.getAllTestimonials = async (req, res) => {
   try {
-    const testimonials = await Testimonial.find({ isApproved: true }).sort("-createdAt");
+    const testimonials = await Testimonial.find({ isApproved: true }).sort("-isFeatured -createdAt");
     res.status(200).json({
       success: true,
       testimonials,
@@ -52,7 +53,33 @@ exports.adminGetAllTestimonials = async (req, res) => {
   }
 };
 
-// Admin: Approve/Reject testimonial
+// Admin: Update testimonial content/featured status
+exports.updateTestimonial = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { patientName, rating, comment, avatar, isFeatured, isApproved } = req.body;
+
+    const testimonial = await Testimonial.findByIdAndUpdate(
+      id,
+      { patientName, rating, comment, avatar, isFeatured, isApproved },
+      { new: true, runValidators: true }
+    );
+
+    if (!testimonial) {
+      return res.status(404).json({ message: "Testimonial not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Testimonial updated successfully",
+      testimonial,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Admin: Update testimonial status only (legacy fallback)
 exports.updateTestimonialStatus = async (req, res) => {
   try {
     const { id } = req.params;
