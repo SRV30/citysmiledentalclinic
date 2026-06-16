@@ -15,6 +15,20 @@ export const getAdminTestimonials = createAsyncThunk(
   }
 );
 
+export const getPublicTestimonials = createAsyncThunk(
+  "testimonial/getPublicTestimonials",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get("/testimonials");
+      return response.data.testimonials;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || { message: "Testimonials are not loading!" }
+      );
+    }
+  }
+);
+
 export const createTestimonial = createAsyncThunk(
   "testimonial/createTestimonial",
   async (testimonialData, { rejectWithValue }) => {
@@ -94,6 +108,20 @@ const testimonialSlice = createSlice({
         state.error = null;
       })
       .addCase(getAdminTestimonials.rejected, (state, action) => {
+        state.error = action.payload?.message || "Failed to fetch testimonials!";
+        state.loading = false;
+      })
+
+      // Get Public Testimonials
+      .addCase(getPublicTestimonials.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getPublicTestimonials.fulfilled, (state, action) => {
+        state.testimonials = action.payload;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(getPublicTestimonials.rejected, (state, action) => {
         state.error = action.payload?.message || "Failed to fetch testimonials!";
         state.loading = false;
       })
