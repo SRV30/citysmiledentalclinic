@@ -80,29 +80,30 @@ const AboutMe = () => {
             <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
               {/* Section 1: Doctor Photo */}
-              <div className="w-full lg:w-5/12 animate-up">
+              <div className="w-full lg:w-5/12 animate-up flex justify-center">
                 <div className="relative group">
-                  {/* Decorative background element */}
-                  <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/20 to-transparent rounded-[2.5rem] -rotate-3 transition-transform group-hover:rotate-0 duration-500"></div>
+                  {/* Ambient Glow Effect */}
+                  <div className="absolute -inset-4 bg-blue-200/30 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl shadow-blue-900/10">
-                    <img
-                      src={about.profilePicture}
-                      alt={about.name}
-                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
-                    />
+                  {/* Circular Image Container */}
+                  <div className="relative p-3 bg-white rounded-full shadow-2xl shadow-blue-900/10 border border-slate-100 transition-transform duration-500 group-hover:scale-[1.02]">
+                    <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-slate-50">
+                      <img
+                        src={about.profilePicture}
+                        alt={about.name}
+                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 ease-in-out"
+                      />
+                    </div>
                   </div>
 
-                  {/* Floating Badge */}
-                  <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-2xl shadow-xl hidden md:block">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center">
-                        <FaCertificate className="text-green-500 text-xl" />
-                      </div>
-                      <div>
-                        <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Experience</p>
-                        <p className="text-sm font-bold text-slate-900">Expert Dentist</p>
-                      </div>
+                  {/* Floating Trust Badge */}
+                  <div className="absolute bottom-6 right-6 bg-white py-3 px-5 rounded-2xl shadow-xl shadow-blue-900/10 border border-slate-50 hidden md:flex items-center gap-3 animate-float">
+                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-200">
+                      <FaCertificate className="text-white text-lg" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Medical Board</p>
+                      <p className="text-sm font-extrabold text-slate-900">Verified Expert</p>
                     </div>
                   </div>
                 </div>
