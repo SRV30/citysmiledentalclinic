@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAboutMe } from "@/store/extra/aboutMe";
 import { gsap } from "gsap";
 import TrustCards from "./TrustCards";
+import ContactActions from "./ContactActions";
 
 const AboutMe = () => {
   const dispatch = useDispatch();
@@ -132,19 +133,12 @@ const AboutMe = () => {
                   </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 items-center">
-                  <a
-                    href={`tel:${about.phone}`}
-                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 hover:-translate-y-0.5 active:translate-y-0"
-                  >
-                    <IoIosCall className="text-xl" /> Book Consultation
-                  </a>
-                  <a
-                    href={`https://wa.me/91${about.whatsapp}`}
-                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-green-500 text-white rounded-xl font-bold hover:bg-green-600 transition-all shadow-lg shadow-green-200 hover:-translate-y-0.5 active:translate-y-0"
-                  >
-                    <FaWhatsapp className="text-xl" /> WhatsApp Now
-                  </a>
+                <div className="mt-8">
+                  <ContactActions
+                    phone={about.phone}
+                    whatsapp={about.whatsapp}
+                    address={about.address}
+                  />
                 </div>
               </div>
 

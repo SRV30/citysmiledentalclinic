@@ -1,0 +1,80 @@
+import React from 'react';
+import { Phone, MessageSquare, MapPin, ChevronRight } from 'lucide-react';
+
+const ContactActions = ({ phone, whatsapp, address }) => {
+  const actions = [
+    {
+      id: 'call',
+      title: 'Call Now',
+      subtitle: 'Talk to our experts',
+      icon: <Phone className="w-6 h-6" />,
+      color: 'bg-blue-600',
+      lightColor: 'bg-blue-50',
+      textColor: 'text-blue-600',
+      link: `tel:${phone}`,
+      description: phone
+    },
+    {
+      id: 'whatsapp',
+      title: 'WhatsApp',
+      subtitle: 'Chat with us',
+      icon: <MessageSquare className="w-6 h-6" />,
+      color: 'bg-green-500',
+      lightColor: 'bg-green-50',
+      textColor: 'text-green-600',
+      link: `https://wa.me/91${whatsapp}`,
+      description: 'Instant response'
+    },
+    {
+      id: 'location',
+      title: 'Location',
+      subtitle: 'Visit our clinic',
+      icon: <MapPin className="w-6 h-6" />,
+      color: 'bg-slate-900',
+      lightColor: 'bg-slate-100',
+      textColor: 'text-slate-900',
+      link: 'https://maps.app.goo.gl/YourMapLinkHere', // Replace with real link or prop
+      description: address || 'View on Maps'
+    }
+  ];
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {actions.map((action) => (
+        <a
+          key={action.id}
+          href={action.link}
+          target="_blank"
+          rel="noreferrer"
+          className="group block bg-white rounded-2xl p-6 shadow-xl shadow-slate-200/50 border border-slate-100 transition-all duration-300 hover:border-transparent hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden"
+        >
+          {/* Hover Color Slide */}
+          <div className={`absolute inset-0 ${action.color} translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out opacity-[0.03]`}></div>
+
+          <div className="flex items-center justify-between mb-6">
+            <div className={`w-14 h-14 rounded-xl ${action.lightColor} ${action.textColor} flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:${action.color} group-hover:text-white`}>
+              {action.icon}
+            </div>
+            <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-white group-hover:text-slate-900 transition-colors">
+              <ChevronRight className="w-5 h-5" />
+            </div>
+          </div>
+
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">
+              {action.subtitle}
+            </p>
+            <h3 className="text-xl font-bold text-slate-900 mb-2">
+              {action.title}
+            </h3>
+            <p className="text-sm font-medium text-slate-500 group-hover:text-slate-700 transition-colors">
+              {action.description}
+            </p>
+          </div>
+        </a>
+      ))}
+    </div>
+  );
+};
+
+export default ContactActions;
