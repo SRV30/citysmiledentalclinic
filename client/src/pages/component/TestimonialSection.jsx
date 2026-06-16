@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPublicTestimonials } from '@/store/home/testimonial';
 import { motion } from 'framer-motion';
 import { Star, Quote, User } from 'lucide-react';
+import ReviewStats from './ReviewStats';
 
 const TestimonialSection = () => {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ const TestimonialSection = () => {
 
       <div className="container mx-auto px-6 md:px-8 relative">
         <header className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
+          <ReviewStats testimonials={testimonials} />
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
