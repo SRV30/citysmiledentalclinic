@@ -5,6 +5,7 @@ import Logo from "./Logo";
 import MetaData from "../layout/MetaData";
 import HomeAbout from "./About";
 import ViewService from "./Service";
+import TestimonialSection from "./TestimonialSection";
 import HomeContact from "./Contact";
 import GetInTouch from "./GetInTouch";
 import { gsap } from "gsap";
@@ -46,6 +47,10 @@ const HomePage = ({ scrollToSection }) => {
 
         <section id="services" className="home-section">
           <ViewService />
+        </section>
+
+        <section id="testimonials" className="home-section">
+          <TestimonialSection />
         </section>
 
         <section id="contact" className="home-section">

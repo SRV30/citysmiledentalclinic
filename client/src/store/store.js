@@ -12,6 +12,7 @@ import usersReducer from "./auth-slice/allUsers";
 import passwordReducer from "./auth-slice/forgotPassword";
 import profileReducer from "./auth-slice/profile";
 import createUserReducer from "./auth-slice/createUser";
+import testimonialReducer from "./home/testimonial";
 
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
     password: passwordReducer,
     profile: profileReducer,
     createUser: createUserReducer,
+    testimonial: testimonialReducer,
   },
 });
 

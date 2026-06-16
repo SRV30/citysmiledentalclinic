@@ -46,6 +46,7 @@ const aboutRoutes = require("./routes/aboutRoutes");
 const service = require("./routes/serviceRoutes");
 const homeAbout = require("./routes/homeAboutRoutes");
 const homeContact = require("./routes/homeContactRoute");
+const testimonial = require("./routes/testimonialRoutes");
 
 app.use((req, res, next) => {
   console.log(`[${req.method}] ${req.url} - Origin: ${req.headers.origin}`);
@@ -66,5 +67,6 @@ app.use("/api", aboutRoutes);
 app.use("/api", service);
 app.use("/api", homeAbout);
 app.use("/api", homeContact);
+app.use("/api", testimonial);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
